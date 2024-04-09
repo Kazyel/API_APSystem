@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model daily_energy_in_period {
+  id        Int       @id @default(autoincrement())
+  duration  Int?
+  total     Decimal?  @db.Decimal(10, 6)
+  max       Decimal?  @db.Decimal(10, 6)
+  co2       Decimal?  @db.Decimal(10, 6)
+  energy    Json?
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  updatedAt DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model hourly_energy_in_day {
+  id        Int       @id @default(autoincrement())
+  duration  Int?
+  total     Decimal?  @db.Decimal(10, 6)
+  max       Decimal?  @db.Decimal(10, 6)
+  co2       Decimal?  @db.Decimal(10, 6)
+  energy    Json?
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  updatedAt DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model monthly_energy_in_year {
+  id          Int      @id @default(autoincrement())
+  duration    Int?
+  total       Decimal? @db.Decimal(10, 6)
+  max         Decimal? @db.Decimal(10, 6)
+  co2         Decimal? @db.Decimal(10, 6)
+  energy_json Json?
+}
+
+model power_in_day {
+  id        Int       @id @default(autoincrement())
+  duration  Int?
+  total     Decimal?  @db.Decimal(10, 6)
+  max       Float?    @db.Float
+  F         Json?
+  co2       Decimal?  @db.Decimal(10, 6)
+  time      Json?
+  power     Json?
+  energy    Json?
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  updatedAt DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model yearly_energy_in_lifetime {
+  id          Int      @id @default(autoincrement())
+  duration    Int?
+  total       Decimal? @db.Decimal(10, 6)
+  max         Decimal? @db.Decimal(10, 6)
+  co2         Decimal? @db.Decimal(10, 6)
+  energy_json Json?
+}
