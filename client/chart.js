@@ -68,7 +68,7 @@ const dailyEnergy = async () => {
         options: {
             elements: {
                 point: {
-                    radius: 0,
+                    radius: 1,
                     hitRadius: 15
                 },
                 line: {
