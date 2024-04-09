@@ -2,10 +2,7 @@ This API fetchs data from Solar Panels that are serving a bunch of statistics li
 
 The received data can be shown through charts in a really simple page only for demonstration and practice purposes.
 
-### To-do
-
-<hr>
-
+## To-do 🗒️
 -   Data re-fetch button.
 -   Better labels for timestamp.
 -   A third chart.
