@@ -1,48 +1,35 @@
 import { PrismaClient } from "@prisma/client";
+import { fastifyStatic } from "@fastify/static";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import Fastify from "fastify";
 import dotenv from "dotenv";
 import path from "node:path";
-import { fastifyStatic } from "@fastify/static";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import hourlyRoute from "./routes/hourlyEnergy.js";
+import powerDayRoute from "./routes/powerDay.js";
 
 // Configs
-const PORT = Number(process.env.PORT);
-const prisma = new PrismaClient();
-const fastify = Fastify();
 dotenv.config();
+export const prisma = new PrismaClient();
+const PORT = Number(process.env.PORT);
+const fastify = Fastify();
 
+// Routes
 const clientDir = fileURLToPath(pathToFileURL("./client"));
 fastify.register(fastifyStatic, {
-    root: path.join(clientDir),
+  root: path.join(clientDir),
 });
 
 fastify.get("/", function (_, reply) {
-    reply.sendFile("./index.html");
+  reply.sendFile("./index.html");
 });
-
-fastify.get("/api/hourly-energy", async () => {
-    const hourlyEnergy = await prisma.hourly_energy_in_day.findMany({
-        orderBy: {
-            createdAt: "desc",
-        },
-    });
-    return hourlyEnergy;
-});
-
-// Getting the power generated on a daily basis
-fastify.get("/api/power-in-day", async () => {
-    const powerInDay = await prisma.power_in_day.findMany({
-        orderBy: {
-            duration: "desc",
-        },
-    });
-    return powerInDay;
-});
+fastify.register(hourlyRoute);
+fastify.register(powerDayRoute);
 
 try {
-    await fastify.listen({ port: PORT });
-    console.log(`Server started at port: ${PORT}`);
+  await fastify.listen({ port: PORT });
+  console.log(`Server started at port: ${PORT}`);
 } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
+  console.log(err);
+  fastify.log.error(err);
+  process.exit(1);
 }
