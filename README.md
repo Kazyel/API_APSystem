@@ -1,6 +1,6 @@
-This API fetchs data from Solar Panels that are serving a bunch of statistics like the amount of energy produced in a day.
+This API fetches data from a database which is storing collected data from solar panels that are serving a bunch of statistics, like the amount of energy produced in a day.
 
-The received data can be shown through charts in a really simple page only for demonstration and practice purposes.
+Then, the received data can be shown through charts in a really simple page only for demonstration and practice purposes.
 
 ## To-do 🗒️
 -   Data re-fetch button.
