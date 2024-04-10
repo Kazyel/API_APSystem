@@ -30,12 +30,15 @@ model hourly_energy_in_day {
 }
 
 model monthly_energy_in_year {
-  id          Int      @id @default(autoincrement())
-  duration    Int?
-  total       Decimal? @db.Decimal(10, 6)
-  max         Decimal? @db.Decimal(10, 6)
-  co2         Decimal? @db.Decimal(10, 6)
-  energy_json Json?
+  id        Int       @id @default(autoincrement())
+  TE        String?   @db.VarChar(45)
+  BD        String?   @db.VarChar(45)
+  EX        Json?
+  IM        Json?
+  i         Json?
+  o         Json?
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  updatedAt DateTime? @default(now()) @db.Timestamp(0)
 }
 
 model power_in_day {
@@ -53,10 +56,9 @@ model power_in_day {
 }
 
 model yearly_energy_in_lifetime {
-  id          Int      @id @default(autoincrement())
-  duration    Int?
-  total       Decimal? @db.Decimal(10, 6)
-  max         Decimal? @db.Decimal(10, 6)
-  co2         Decimal? @db.Decimal(10, 6)
-  energy_json Json?
+  id        Int       @id @default(autoincrement())
+  year      Json?
+  energy    Json?
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  updatedAt DateTime? @default(now()) @db.Timestamp(0)
 }

@@ -1,22 +1,15 @@
-async function hourlyEnergy() {
+const hourlyEnergy = async () => {
     const res = await fetch("/api/hourly-energy")
-    const hourlyEnergyArray = await res.json()
-
-    console.log(recentData = hourlyEnergyArray[0])
-
-    let labels = [];
-    for (let i = 0; i < recentData.energy.length; i++) {
-        labels.push(i + 'hrs')
-    }
+    const hourlyEnergy = await res.json()
 
     const ctx = document.getElementById('hourlyChart');
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: hourlyEnergy.labels,
             datasets: [{
                 label: '# Hourly Energy Generated',
-                data: recentData.energy,
+                data: hourlyEnergy.energy,
                 borderWidth: 3,
                 borderCapStyle: 'round',
                 borderJoinStyle: 'round',
@@ -37,28 +30,18 @@ async function hourlyEnergy() {
     });
 }
 
-hourlyEnergy()
-
 const dailyEnergy = async () => {
     const res = await fetch("/api/power-in-day")
-    const dailyEnergyArray = await res.json()
-
-    console.log(recentData = dailyEnergyArray[0])
-
-    let labels = [];
-    for (let i = 0; i < recentData.time.length; i++) {
-        labels.push(new Date(recentData.time[i]).toLocaleString('pt-BR'))
-    }
-
     const ctx = document.getElementById('powerDayChart');
+    const dailyPower = await res.json()
 
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: dailyPower.labels,
             datasets: [{
                 label: '# Power in Day Generated',
-                data: recentData.energy,
+                data: dailyPower.power,
                 borderWidth: 3,
                 borderCapStyle: 'round',
                 borderJoinStyle: 'round',
@@ -79,4 +62,9 @@ const dailyEnergy = async () => {
     })
 }
 
+const periodEnergy = async () => {
+
+}
+
 dailyEnergy()
+hourlyEnergy()
