@@ -6,11 +6,11 @@ const powerDayRoute = (
     options: never,
     done: () => void
 ) => {
-    fastify.get("/api/power-in-day", async () => {
+    fastify.get("/api/power-in-day", async (req) => {
         const powerInDay = await prisma.power_in_day.findMany();
 
-        let labels: string[] = [];
         let power: string[] = [];
+        let labels: string[] = [];
 
         powerInDay.map((entry, index) => {
             if (entry.createdAt && entry.power) {

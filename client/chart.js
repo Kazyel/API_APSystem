@@ -1,5 +1,7 @@
 const hourlyEnergy = async () => {
-    const res = await fetch("/api/hourly-energy")
+    const today = new Date().toISOString().slice(0, 10)
+
+    const res = await fetch(`/api/hourly-energy?day=${today}`)
     const hourlyEnergy = await res.json()
 
     const ctx = document.getElementById('hourlyChart');
@@ -63,7 +65,33 @@ const dailyEnergy = async () => {
 }
 
 const periodEnergy = async () => {
+    const ctx = document.getElementById('dailyChart');
 
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dailyPower.labels,
+            datasets: [{
+                label: '# Power in Day Generated',
+                data: dailyPower.power,
+                borderWidth: 3,
+                borderCapStyle: 'round',
+                borderJoinStyle: 'round',
+                tension: 0.3
+            }]
+        },
+        options: {
+            elements: {
+                point: {
+                    radius: 1,
+                    hitRadius: 15
+                },
+                line: {
+                    borderColor: '#6bf333',
+                }
+            }
+        }
+    })
 }
 
 dailyEnergy()
