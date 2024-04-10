@@ -4,6 +4,6 @@ Then, the received data can be shown through charts in a really simple page only
 
 ## To-do 🗒️
 -   ~~Better labels for timestamp.~~
--   - Data re-fetch button.
+-   Data re-fetch button.
 -   A third chart.
 -   Filtering data by day.
