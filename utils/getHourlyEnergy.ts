@@ -1,11 +1,5 @@
 import { prisma } from "../index.js";
-
-export const limitDate = (day: string) => {
-    const baseDate = new Date(day);
-    const maxDate = baseDate.setHours(baseDate.getHours() + 23, 59);
-    const isoString = new Date(maxDate).toISOString();
-    return isoString;
-};
+import { limitDate } from "./helpers.js";
 
 export const getHourlyEnergy = async (initialDate?: string, day?: string) => {
     if (day && initialDate) {

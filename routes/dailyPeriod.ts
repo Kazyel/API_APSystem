@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { prisma } from "../index.js";
-import { limitDate } from "../utils/getHourlyEnergy.js";
 import { DayRequest } from "../utils/types.js";
+import { limitDate } from "../utils/helpers.js";
 
 const dailyPeriod = (
     fastify: FastifyInstance,
