@@ -1,0 +1,10 @@
+.data-title {
+    font-size: 3rem;
+    text-align: center;
+    padding: 1rem;
+    font-family: "Open Sans", sans-serif;
+}
+
+.chart:not(.first) {
+    padding-top: 4rem;
+}

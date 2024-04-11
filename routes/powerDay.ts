@@ -1,35 +1,20 @@
 import { FastifyInstance } from "fastify";
 import { prisma } from "../index.js";
+import { DayRequest } from "../utils/types.js";
+import { getPowerDay } from "../utils/getPowerDay.js";
 
 const powerDayRoute = (
     fastify: FastifyInstance,
     options: never,
     done: () => void
 ) => {
-    fastify.get("/api/power-in-day", async (req) => {
-        const powerInDay = await prisma.power_in_day.findMany();
+    fastify.get("/api/daily-power", async (req: DayRequest) => {
+        const { day } = req.query;
 
-        let power: string[] = [];
-        let labels: string[] = [];
-
-        powerInDay.map((entry, index) => {
-            if (entry.createdAt && entry.power) {
-                power.push((entry.power as string[])[index]);
-                labels.push(
-                    entry.createdAt.toLocaleTimeString("pt-BR", {
-                        timeZone: "UTC",
-                    })
-                );
-            }
-            return;
-        });
-
-        const data = {
-            power: power,
-            labels: labels,
-        };
-
-        return data;
+        if (day) {
+            const initialDate = new Date(day).toISOString();
+            return await getPowerDay(initialDate, day);
+        }
     });
 
     done();

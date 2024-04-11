@@ -3,24 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
     <title>Document</title>
 </head>
 
 <body>
-    <h1>Data Visualization:</h1>
-    <div>
+    <h1 class="data-title">Data Visualization:</h1>
+    <div class="chart first">
+        <!-- <select name="hourlyDate" id="hourlyDate">
+            <option>Teste</option>
+        </select> -->
         <canvas id="hourlyChart"></canvas>
     </div>
-    <div>
+    <div class="chart">
+        <!-- <select name="powerDate" id="powerDate">
+            <option>Teste</option>
+        </select> -->
         <canvas id="powerDayChart"></canvas>
     </div>
-    <div>
-        <canvas id="dailyChart"></canvas>
+    <div class="chart">
+        <canvas id="monthlyChart"></canvas>
+    </div>
+    <div class="chart">
+        <canvas id="yearlyChart"></canvas>
     </div>
 
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script defer src="./chart.js"></script>
+    <script defer type="module" src="./js/main.js"></script>
 </body>
 
 </html>
