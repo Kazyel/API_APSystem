@@ -7,3 +7,4 @@ Then, the received data can be shown through charts in a really simple page only
 -   ~~More charts.~~
 -   Filtering data by day.
 -   Re-fetch button by data selected.
+-   Error Handling.
