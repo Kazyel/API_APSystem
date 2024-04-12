@@ -1,15 +1,15 @@
-import { FastifyInstance } from "fastify";
-import { getHourlyEnergy } from "../utils/getHourlyEnergy.js";
-import { DayRequest } from "../utils/types.js";
-import { prisma } from "../index.js";
-import { getAvailableDates } from "../utils/helpers.js";
+import { FastifyInstance } from 'fastify';
+import { getHourlyEnergy } from '../utils/getHourlyEnergy.js';
+import { DayRequest } from '../utils/types.js';
+import { prisma } from '../index.js';
+import { getAvailableDates } from '../utils/helpers.js';
 
 const hourlyRoute = (
     fastify: FastifyInstance,
     options: never,
     done: () => void
 ) => {
-    fastify.get("/api/hourly-energy", async (req: DayRequest) => {
+    fastify.get('/api/hourly-energy', async (req: DayRequest) => {
         const { day } = req.query;
 
         if (day) {
@@ -18,7 +18,7 @@ const hourlyRoute = (
         }
 
         const datesList = await prisma.hourly_energy_in_day.groupBy({
-            by: "createdAt",
+            by: 'createdAt',
         });
 
         return await { availableDates: getAvailableDates(datesList) };

@@ -1,5 +1,5 @@
-import { prisma } from "../index.js";
-import { limitDate } from "./helpers.js";
+import { prisma } from '../index.js';
+import { limitDate } from './helpers.js';
 
 export const getPowerDay = async (initialDate: string, day: string) => {
     if (initialDate && day) {
@@ -14,7 +14,7 @@ export const getPowerDay = async (initialDate: string, day: string) => {
                 },
             },
             orderBy: {
-                createdAt: "desc",
+                createdAt: 'desc',
             },
         });
 
