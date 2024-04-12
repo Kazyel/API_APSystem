@@ -3,21 +3,21 @@ import { prisma } from "../index.js";
 import { DayRequest } from "../utils/types.js";
 import { limitDate } from "../utils/helpers.js";
 
-const dailyPeriod = (
-    fastify: FastifyInstance,
-    options: never,
-    done: () => void
+const dailyPeriodRoute = (
+  fastify: FastifyInstance,
+  options: never,
+  done: () => void
 ) => {
-    fastify.get("/api/daily-period", async (req: DayRequest) => {
-        const { day } = req.query;
-        limitDate(day);
+  fastify.get("/api/daily-period", async (req: DayRequest) => {
+    const { day } = req.query;
+    limitDate(day);
 
-        const dailyEnergy = await prisma.daily_energy_in_period.findMany();
+    const dailyEnergy = await prisma.daily_energy_in_period.findMany();
 
-        return dailyEnergy;
-    });
+    return dailyEnergy;
+  });
 
-    done();
+  done();
 };
 
-export default dailyPeriod;
+export default dailyPeriodRoute;
