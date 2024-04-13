@@ -13,8 +13,7 @@ const powerDayRoute = (
         const { day } = req.query;
 
         if (day) {
-            const initialDate = new Date(day).toISOString();
-            return await getPowerDay(initialDate, day);
+            return await getPowerDay(day);
         }
 
         const datesList = await prisma.power_in_day.groupBy({

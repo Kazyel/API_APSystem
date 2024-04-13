@@ -1,8 +1,8 @@
 import { prisma } from '../index.js';
 import { limitDate } from './helpers.js';
 
-export const getPowerDay = async (initialDate: string, day: string) => {
-    if (initialDate && day) {
+export const getPowerDay = async (initialDate?: string) => {
+    if (initialDate) {
         const powerInDay = await prisma.power_in_day.findMany({
             where: {
                 energy: {
@@ -10,7 +10,7 @@ export const getPowerDay = async (initialDate: string, day: string) => {
                 },
                 createdAt: {
                     gte: initialDate,
-                    lte: limitDate(day),
+                    lte: limitDate(initialDate),
                 },
             },
             orderBy: {
@@ -25,8 +25,6 @@ export const getPowerDay = async (initialDate: string, day: string) => {
         let startMinutes = 30;
 
         (mostRecent.power as []).forEach(() => {
-            startMinutes = startMinutes + 5;
-
             if (startMinutes === 60) {
                 startMinutes = 0;
                 startHour++;
@@ -36,6 +34,8 @@ export const getPowerDay = async (initialDate: string, day: string) => {
             } else {
                 labels.push(`${startHour}:${startMinutes}`);
             }
+
+            startMinutes = startMinutes + 5;
         });
 
         const data = {

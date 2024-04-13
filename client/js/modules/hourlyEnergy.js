@@ -1,7 +1,9 @@
-export const hourlyEnergy = async () => {
-    const today = new Date().toISOString().slice(0, 10)
+import { toIsoString } from "./dailyPower.js"
 
-    const res = await fetch(`/api/hourly-energy?day=${today}`)
+export const hourlyEnergy = async () => {
+    const today = new Date()
+
+    const res = await fetch(`/api/hourly-energy?day=${toIsoString(today)}`)
     const hourlyEnergy = await res.json()
 
     const ctx = document.getElementById('hourlyChart').getContext('2d');

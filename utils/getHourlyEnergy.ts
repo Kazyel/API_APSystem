@@ -1,8 +1,8 @@
 import { prisma } from '../index.js';
 import { limitDate } from './helpers.js';
 
-export const getHourlyEnergy = async (initialDate?: string, day?: string) => {
-    if (day && initialDate) {
+export const getHourlyEnergy = async (initialDate?: string) => {
+    if (initialDate) {
         const hourlyEnergy = await prisma.hourly_energy_in_day.findMany({
             where: {
                 energy: {
@@ -10,7 +10,7 @@ export const getHourlyEnergy = async (initialDate?: string, day?: string) => {
                 },
                 createdAt: {
                     gte: initialDate,
-                    lte: limitDate(day),
+                    lte: limitDate(initialDate),
                 },
             },
             orderBy: {

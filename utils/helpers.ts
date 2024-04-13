@@ -19,7 +19,10 @@ export const getAvailableDates = (
 
 export const limitDate = (day: string) => {
     const baseDate = new Date(day);
-    const maxDate = baseDate.setHours(baseDate.getHours() + 23, 59);
+    const maxDate = baseDate.setHours(
+        baseDate.getHours() + (23 - new Date().getTimezoneOffset() / 60),
+        59
+    );
     const isoString = new Date(maxDate).toISOString();
 
     return isoString;
