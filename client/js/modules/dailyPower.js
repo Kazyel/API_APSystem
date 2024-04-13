@@ -10,9 +10,7 @@ export function toIsoString(date) {
         '-' + pad(date.getDate()) +
         'T' + pad(0) +
         ':' + pad(0) +
-        ':' + pad(0) +
-        dif + pad(Math.floor(Math.abs(tzo) / 60)) +
-        ':' + pad(Math.abs(tzo) % 60);
+        ':' + pad(0)
 }
 
 export const dailyPower = async () => {

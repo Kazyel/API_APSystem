@@ -13,7 +13,8 @@ const hourlyRoute = (
         const { day } = req.query;
 
         if (day) {
-            return await getHourlyEnergy(day);
+            const initialDate = new Date(day).toISOString();
+            return await getHourlyEnergy(initialDate);
         }
 
         const datesList = await prisma.hourly_energy_in_day.groupBy({

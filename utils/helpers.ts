@@ -24,6 +24,5 @@ export const limitDate = (day: string) => {
         59
     );
     const isoString = new Date(maxDate).toISOString();
-
     return isoString;
 };
