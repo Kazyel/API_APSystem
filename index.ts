@@ -9,6 +9,7 @@ import powerDayRoute from './routes/powerDay.js';
 import dailyPeriodRoute from './routes/dailyPeriod.js';
 import monthlyEnergyRoute from './routes/monthlyEnergy.js';
 import yearlyEnergyRoute from './routes/yearlyEnergy.js';
+import cors from '@fastify/cors';
 
 // Configs
 dotenv.config();
@@ -20,6 +21,8 @@ const clientDir = fileURLToPath(pathToFileURL('./client'));
 fastify.register(fastifyStatic, {
     root: path.join(clientDir),
 });
+
+await fastify.register(cors, {});
 
 // Routes
 fastify.get('/', function (_, reply) {
