@@ -1,0 +1,10 @@
+version: '3.5'
+
+services:
+    api-elena-apsystems:
+        container_name: Api-Elena-Apsystem
+        restart: always
+        build: .
+        ports:
+            - 3123:3123
+        image: api-elena-apsystems
