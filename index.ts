@@ -35,12 +35,10 @@ fastify.register(monthlyEnergyRoute);
 fastify.register(yearlyEnergyRoute);
 
 try {
-    await fastify.listen({ port: PORT,  host: '0.0.0.0' });
+    await fastify.listen({ port: PORT, host: '0.0.0.0' });
     console.log(`Server started at port: ${PORT}`);
 } catch (err) {
     console.log(err);
     fastify.log.error(err);
     process.exit(1);
 }
-
-

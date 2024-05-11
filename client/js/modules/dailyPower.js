@@ -16,7 +16,7 @@ export function toIsoString(date) {
 export const dailyPower = async () => {
     const today = new Date()
 
-    const res = await fetch(`/api/daily-power?day=${toIsoString(today)}`)
+    const res = await fetch(`/api/daily-power?day=2024-05-07`)
     const dailyPower = await res.json()
 
     const ctx = document.getElementById('powerDayChart').getContext('2d');

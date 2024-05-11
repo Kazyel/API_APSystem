@@ -1,16 +1,18 @@
 import { Prisma } from '@prisma/client';
 
 export const getAvailableDates = (
-    dates: (Prisma.PickEnumerable<
+    hourlyEnergyDates: (Prisma.PickEnumerable<
         Prisma.Hourly_energy_in_dayGroupByOutputType,
         'createdAt'
     > & {})[]
 ) => {
     const availableDates: string[] = [];
-    dates.map((dates) => {
-        const yyyy_mm_dd = dates.createdAt?.toISOString().slice(0, 10);
-        if (!availableDates.includes(yyyy_mm_dd!)) {
-            availableDates.push(yyyy_mm_dd!);
+
+    hourlyEnergyDates.map((dates) => {
+        const dateString = dates.createdAt?.toISOString().slice(0, 10);
+
+        if (!availableDates.includes(dateString!)) {
+            availableDates.push(dateString!);
         }
     });
 
@@ -24,5 +26,6 @@ export const limitDate = (day: string) => {
         59
     );
     const isoString = new Date(maxDate).toISOString();
+
     return isoString;
 };
