@@ -1,0 +1,60 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <h1 class="data-title">Data Visualization:</h1>
+
+        <div class="container-svg">
+            <div id="svgContainer">
+                <svg id="svg_physical" style="width:100%; height:600px; border:solid 1px black;display:block;"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="-1000 1600 6000 1700" version="1.1">
+
+                </svg>
+            </div>
+        </div>
+    </main>
+
+    <svg>
+        <defs>
+            <linearGradient id="gradient-1">
+                <stop offset="0%" stop-color="rgba(1, 101, 144, 1)" />
+                <stop offset="100%" stop-color="rgba(2,126,180,1)" />
+            </linearGradient>
+            <linearGradient id="gradient-2">
+                <stop offset="0%" stop-color="rgba(2, 112, 160, 1)" />
+                <stop offset="100%" stop-color="rgba(0, 91, 131,1)" />
+            </linearGradient>
+            <linearGradient id="gradient-3">
+                <stop offset="0%" stop-color="rgba(3,160,228,1)" />
+                <stop offset="100%" stop-color="rgba(3,128,182,1)" />
+            </linearGradient>
+            <linearGradient id="gradient-4">
+                <stop offset="100%" stop-color="rgba(21, 182, 251, 1)" />
+                <stop offset="0%" stop-color="rgba(0, 168, 240, 1)" />
+            </linearGradient>
+            <linearGradient id="gradient-5">
+                <stop offset="0%" stop-color="rgba(44, 189, 251,1)" />
+                <stop offset="100%" stop-color="rgba(97, 208, 255,1)" />
+            </linearGradient>
+            <linearGradient id="gradient-0">
+                <stop offset="0%" stop-color="rgba(0, 0, 0,1)" />
+                <stop offset="100%" stop-color="rgba(25,25,25,1)" />
+            </linearGradient>
+            <defs />
+    </svg>
+
+    <script defer type="module" src="./js/layout.js"></script>
+</body>
+
+</html>

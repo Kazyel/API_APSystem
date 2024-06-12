@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cabinet_panels {
+  id        Int       @id @default(autoincrement())
+  id_inv    String?   @db.VarChar(10)
+  positions Json?
+  energy    String?   @db.VarChar(10)
+  createdAt DateTime? @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+}
+
+model home_panels {
+  id        Int       @id @default(autoincrement())
+  id_inv    String?   @db.VarChar(10)
+  positions Json?
+  energy    String?   @db.VarChar(10)
+  createdAt DateTime? @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+}
+
+model laundry_panels {
+  id        Int       @id @default(autoincrement())
+  id_inv    String?   @db.VarChar(10)
+  positions Json?
+  energy    String?   @db.VarChar(10)
+  createdAt DateTime? @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+}
+
+model restaurant_panels {
+  id        Int       @id @default(autoincrement())
+  id_inv    String?   @db.VarChar(10)
+  positions Json?
+  energy    String?   @db.VarChar(10)
+  createdAt DateTime? @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+}
+
+model cabinet_panel_history {
+  id        Int       @id @default(autoincrement())
+  month_ref String?   @db.VarChar(10)
+  data      Json?
+  createdAt DateTime? @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+}
+
+model home_panel_history {
+  id        Int       @id @default(autoincrement())
+  month_ref String?   @db.VarChar(10)
+  data      Json?
+  createdAt DateTime? @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+}
+
+model laundry_panel_history {
+  id        Int       @id @default(autoincrement())
+  month_ref String?   @db.VarChar(10)
+  data      Json?
+  createdAt DateTime? @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+}
+
+model restaurant_panel_history {
+  id        Int       @id @default(autoincrement())
+  month_ref String?   @db.VarChar(10)
+  data      Json?
+  createdAt DateTime? @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+}

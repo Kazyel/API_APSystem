@@ -1,0 +1,49 @@
+.data-title {
+    font-size: 3rem;
+    text-align: center;
+    padding: 1rem;
+    font-family: 'Open Sans', sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+canvas {
+    min-height: 800px;
+}
+
+.chart:not(.first) {
+    padding-top: 4rem;
+}
+
+.container-svg {
+    padding: 4rem 6rem;
+}
+
+#svg_physical {
+    cursor: grab;
+}
+
+.panel-title,
+.energy-label,
+.panel-id {
+    user-select: none;
+}
+
+#laundry-panels {
+    transform: translate(1500px, 3800px) rotate(-90deg);
+}
+
+#cabinet-panels {
+    transform: translate(1000px, 4500px) rotate(45deg);
+}
+
+#home-panels {
+    transform: translate(2000px, 0px);
+}
+
+#restaurant-panels {
+    transform: translate(-1000px, 300px);
+}
