@@ -1,14 +1,14 @@
 import { FastifyInstance } from 'fastify';
 import { prisma } from '../db.js';
-import { MonthlyData, MonthRequest } from '../utils/types.js';
+import { MonthlyData, MonthlyRequest } from '../utils/types.js';
 
 const monthlyEnergyRoute = (
     fastify: FastifyInstance,
     options: never,
     done: () => void
 ) => {
-    fastify.get('/api/energy/monthly', async (req: MonthRequest) => {
-        const { month } = req.query;
+    fastify.get('/api/energy/monthly', async (req: MonthlyRequest) => {
+        const { month, year } = req.query;
 
         if (month) {
             const monthlyEnergy = await prisma.daily_energy.findFirst({
@@ -34,29 +34,47 @@ const monthlyEnergyRoute = (
 
                 return monthlyProcessedData;
             }
+
+            return null;
         }
 
-        const months = await prisma.daily_energy.findMany({
-            distinct: 'month_ref',
-        });
+        if (year) {
+            const months = await prisma.daily_energy.findMany({
+                distinct: 'month_ref',
+                orderBy: [
+                    {
+                        month_ref: 'asc',
+                    },
+                    {
+                        createdAt: 'desc',
+                    },
+                ],
+            });
 
-        const monthData = [];
+            const filteredMonths = months.filter((month) => {
+                return month.month_ref?.slice(3) === year;
+            });
 
-        for (const month in months) {
-            let energyAccumulated = 0;
-            const dataArray = months[month].data as MonthlyData;
+            const monthData = [];
 
-            for (const data in dataArray) {
-                energyAccumulated += Number(dataArray[data].energy);
+            for (const month in filteredMonths) {
+                let energyAccumulated = 0;
+                const dataArray = months[month].data as MonthlyData;
+
+                for (const data in dataArray) {
+                    energyAccumulated += Number(dataArray[data].energy);
+                }
+
+                monthData.push({
+                    month: months[month].month_ref,
+                    energy: energyAccumulated,
+                });
             }
 
-            monthData.push({
-                month: months[month].month_ref,
-                energy: energyAccumulated,
-            });
+            return monthData;
         }
 
-        return monthData;
+        return null;
     });
 
     done();
