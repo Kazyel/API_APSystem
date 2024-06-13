@@ -114,7 +114,7 @@ function createEnergyLabel(x, y, energy, color) {
     let energyLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text')
 
     energyLabel.setAttribute('x', x + (panelWidth / 2))
-    energyLabel.setAttribute('y', y + (panelHeight / 2 + 25))
+    energyLabel.setAttribute('y', y + (panelHeight / 2))
     energyLabel.setAttribute('text-anchor', 'middle')
     energyLabel.setAttribute('fill', color)
     energyLabel.style.font = 'bold 5rem Open Sans'
@@ -130,17 +130,28 @@ function createEnergyLabel(x, y, energy, color) {
 */
 function createPanelPairLabel(x, y, pairLabel, color) {
     let panelTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+    let panelBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+    let svgPairGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
 
-    panelTitle.setAttribute('x', x + (panelWidth / 2))
-    panelTitle.setAttribute('y', y + (panelHeight - 75))
-    panelTitle.setAttribute('text-anchor', 'middle')
+    panelBg.setAttribute('x', x);
+    panelBg.setAttribute('y', y + panelHeight - 80)
+    panelBg.setAttribute('width', panelWidth)
+    panelBg.setAttribute('height', panelHeight * 0.2)
+    panelBg.setAttribute('fill', 'black')
+
+    panelTitle.setAttribute('x', x + 25)
+    panelTitle.setAttribute('y', y + (panelHeight - 25))
+    panelTitle.setAttribute('text-anchor', 'left')
     panelTitle.setAttribute('fill', color)
     panelTitle.textContent = pairLabel
     panelTitle.style.font = 'bold 3rem Open Sans'
     panelTitle.style.cursor = 'pointer'
     panelTitle.classList.add('panel-title')
 
-    return panelTitle
+    svgPairGroup.appendChild(panelBg)
+    svgPairGroup.appendChild(panelTitle)
+
+    return svgPairGroup
 }
 
 /*
@@ -149,12 +160,12 @@ function createPanelPairLabel(x, y, pairLabel, color) {
 function createPanelID(x, y, id, color) {
     let panelId = document.createElementNS('http://www.w3.org/2000/svg', 'text')
 
-    panelId.setAttribute('x', x + (panelWidth / 2))
-    panelId.setAttribute('y', y + (panelHeight / 2 - 100))
-    panelId.setAttribute('text-anchor', 'middle')
+    panelId.setAttribute('x', x + panelWidth - 100)
+    panelId.setAttribute('y', y + (panelHeight - 25))
+    panelId.setAttribute('text-anchor', 'right')
     panelId.setAttribute('fill', color)
     panelId.textContent = id
-    panelId.style.font = 'bold 2.25rem Open Sans'
+    panelId.style.font = 'bold 3rem Open Sans'
     panelId.classList.add('panel-id')
 
     return panelId

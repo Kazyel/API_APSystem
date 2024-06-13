@@ -1,30 +1,33 @@
-import path from 'node:path';
-import Fastify from 'fastify';
-import cors from '@fastify/cors';
+import Fastify from "fastify";
+import path from "node:path";
+import cors from "@fastify/cors";
 
-import laundryPanels from './routes/laundryPanels.js';
-import homePanels from './routes/homePanels.js';
-import restaurantPanels from './routes/restaurantPanels.js';
-import cabinetPanels from './routes/cabinetPanels.js';
+import { fastifyStatic } from "@fastify/static";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-import { fastifyStatic } from '@fastify/static';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import hourlyRoute from "./routes/hourlyEnergy.js";
+import powerDayRoute from "./routes/realtimeEnergy.js";
+import dailyPeriodRoute from "./routes/dailyPeriod.js";
+import monthlyEnergyRoute from "./routes/monthlyEnergy.js";
+import yearlyEnergyRoute from "./routes/yearlyEnergy.js";
 
+// Configs
 export const fastify = Fastify();
 await fastify.register(cors, {});
 
 // Client
-const clientDir = fileURLToPath(pathToFileURL('./public'));
+const clientDir = fileURLToPath(pathToFileURL("public"));
 fastify.register(fastifyStatic, {
-    root: path.join(clientDir),
+  root: path.join(clientDir),
 });
 
-fastify.get('/', function (_, reply) {
-    reply.sendFile('./index.html');
+fastify.get("/", function (_, reply) {
+  reply.sendFile("./index.html");
 });
 
-// Panels routes
-fastify.register(cabinetPanels);
-fastify.register(restaurantPanels);
-fastify.register(homePanels);
-fastify.register(laundryPanels);
+// Energy Routes
+fastify.register(hourlyRoute);
+fastify.register(powerDayRoute);
+fastify.register(dailyPeriodRoute);
+fastify.register(monthlyEnergyRoute);
+fastify.register(yearlyEnergyRoute);
