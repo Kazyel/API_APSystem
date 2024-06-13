@@ -27,14 +27,18 @@ svgContainer.onwheel = function (e) {
     let dh = h * Math.sign(e.deltaY) * 0.05;
     let dx = dw * mx / svgSize.w;
     let dy = dh * my / svgSize.h;
+    let newW = viewBox.w + dw;
+    let newH = viewBox.h + dh;
 
-    viewBox = { x: viewBox.x - dx, y: viewBox.y - dy, w: viewBox.w + dw, h: viewBox.h + dh };
-    scale = svgSize.w / viewBox.w;
+    if (newW > 750 && newH > 750 && newW < 17500 && newH < 17500) {
+        viewBox = { x: viewBox.x - dx, y: viewBox.y - dy, w: viewBox.w + dw, h: viewBox.h + dh };
+        scale = svgSize.w / viewBox.w;
 
-    if (is_physic) {
-        svg_physical.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
-    } else {
-        svg.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+        if (is_physic) {
+            svg_physical.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+        } else {
+            svg.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+        }
     }
 }
 
@@ -115,7 +119,7 @@ function createEnergyLabel(x, y, energy, color) {
     energyLabel.setAttribute('fill', color)
     energyLabel.style.font = 'bold 5rem Open Sans'
     energyLabel.style.cursor = 'pointer'
-    energyLabel.classList = 'energy-label'
+    energyLabel.classList.add('energy-label')
     energyLabel.textContent = energy
 
     return energyLabel
@@ -134,7 +138,7 @@ function createPanelPairLabel(x, y, pairLabel, color) {
     panelTitle.textContent = pairLabel
     panelTitle.style.font = 'bold 3rem Open Sans'
     panelTitle.style.cursor = 'pointer'
-    panelTitle.classList = 'panel-title'
+    panelTitle.classList.add('panel-title')
 
     return panelTitle
 }
@@ -151,11 +155,10 @@ function createPanelID(x, y, id, color) {
     panelId.setAttribute('fill', color)
     panelId.textContent = id
     panelId.style.font = 'bold 2.25rem Open Sans'
-    panelId.classList = 'panel-id'
+    panelId.classList.add('panel-id')
 
     return panelId
 }
-
 
 function createEmptyRect(width, height, x, y, strokeColor) {
     const rectElement = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -166,6 +169,7 @@ function createEmptyRect(width, height, x, y, strokeColor) {
     rectElement.setAttribute('fill', 'none');
     rectElement.setAttribute('stroke', strokeColor);
     rectElement.setAttribute('stroke-width', 5);
+    rectElement.classList.add('top')
 
     return rectElement;
 }
@@ -189,10 +193,10 @@ const getRGBColor = (energy) => {
     let energyPercentage = energyValue / maxEnergyValue * 100
 
     let maxColorValue = 255
-    let blueValue = energyPercentage / 100 * maxColorValue + 40
-    let greenValue = blueValue - 60
+    let blueValue = energyPercentage / 100 * maxColorValue + 80
+    let greenValue = blueValue - 75
 
-    return `rgba(10, ${greenValue}, ${blueValue}, .85)`
+    return `rgba(0, ${greenValue}, ${blueValue}, 1)`
 }
 
 /*
@@ -235,7 +239,6 @@ function createPanelGroup(data, id) {
         solarPanelGroup.appendChild(energyLabel)
         solarPanelGroup.appendChild(pairLabel)
         solarPanelGroup.appendChild(panelId)
-
         svgGroup.appendChild(solarPanelGroup)
     }
 
@@ -255,11 +258,10 @@ async function createPanels(url) {
     const data = await dataFetch.json()
     const panels = createPanelGroup(data, url)
 
-    svg_physical.appendChild(panels)
     return panels
 }
 
-const createHomePanels = async () => {
+async function createHomePanels() {
     const panels = await createPanels('home-panels')
 
     if (panels === undefined) {
@@ -275,7 +277,7 @@ const createHomePanels = async () => {
     const rightOuterDetail = createEmptyRect(panelWidth * 0.95, panelHeight * 5.15, panelWidth * 6 - 70, panelHeight * 3 - 25, '#000000bb')
 
     const line = createEmptyRect(panelWidth * 1.5, 1, panelWidth * 7 - 100, panelHeight * 6, '#000000bb')
-
+    const triangle = createEmptyTrapeze(`${panelWidth * 8.35 + 5}, ${panelWidth * 3.4 + 20} ${panelWidth * 11.25}, 0 ${panelWidth * 11.25}, ${panelWidth * 6.85}`, '#000000bb')
 
     svg_physical.appendChild(homeBase)
     svg_physical.appendChild(rightBase)
@@ -283,14 +285,44 @@ const createHomePanels = async () => {
     svg_physical.appendChild(leftBaseTwo)
     svg_physical.appendChild(rightInnerDetail)
     svg_physical.appendChild(rightOuterDetail)
+    svg_physical.appendChild(triangle)
     svg_physical.appendChild(line)
+    svg_physical.appendChild(panels)
+}
+
+async function createCabinetPanels() {
+    const panels = await createPanels('cabinet-panels')
+
+    if (panels === undefined) {
+        return console.error('No panels found.')
+    }
+
+    svg_physical.appendChild(panels)
+}
+
+async function createLaundryPanels() {
+    const panels = await createPanels('laundry-panels')
+
+    if (panels === undefined) {
+        return console.error('No panels found.')
+    }
+
+    svg_physical.appendChild(panels)
+}
+
+async function createRestaurantPanels() {
+    const panels = await createPanels('restaurant-panels')
+
+    if (panels === undefined) {
+        return console.error('No panels found.')
+    }
+
+    svg_physical.appendChild(panels)
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    createPanels('laundry-panels')
-    // createPanels('cabinet-panels')
-
-
-    // createHomePanels()
-    // createPanels('restaurant-panels')
+    // createLaundryPanels()
+    createHomePanels()
+    // createCabinetPanels()
+    // createRestaurantPanels()
 })

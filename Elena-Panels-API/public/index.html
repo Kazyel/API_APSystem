@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Solar Panels Visualization</title>
+</head>
+
+<body>
+    <main>
+        <h1 class="data-title">Panels Visualization:</h1>
+        <div class="container-svg">
+            <div id="svgContainer">
+                <svg id="svg_physical" style="width:100%; height:600px; border:solid 1px black;display:block;"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="-1000 1600 6000 1700" version="1.1">
+
+                </svg>
+            </div>
+        </div>
+    </main>
+
+    <script async src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer type="module" src="./js/layout.js"></script>
+</body>
+
+</html>
