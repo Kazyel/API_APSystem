@@ -10,7 +10,7 @@ const monthlyEnergyRoute = (
     fastify.get('/api/energy/monthly', async (req: MonthlyRequest) => {
         const { month, year } = req.query;
 
-        if (month) {
+        if (month && month !== undefined) {
             const monthlyEnergy = await prisma.daily_energy.findFirst({
                 where: {
                     month_ref: month,
@@ -34,11 +34,9 @@ const monthlyEnergyRoute = (
 
                 return monthlyProcessedData;
             }
-
-            return null;
         }
 
-        if (year) {
+        if (year && year !== undefined) {
             const months = await prisma.daily_energy.findMany({
                 distinct: 'month_ref',
                 orderBy: [
@@ -54,8 +52,8 @@ const monthlyEnergyRoute = (
             const filteredMonths = months.filter((month) => {
                 return month.month_ref?.slice(3) === year;
             });
-
-            const monthData = [];
+            
+            const monthlyProcessedData = [];
 
             for (const month in filteredMonths) {
                 let energyAccumulated = 0;
@@ -65,16 +63,16 @@ const monthlyEnergyRoute = (
                     energyAccumulated += Number(dataArray[data].energy);
                 }
 
-                monthData.push({
+                monthlyProcessedData.push({
                     month: months[month].month_ref,
                     energy: energyAccumulated,
                 });
             }
 
-            return monthData;
+            return monthlyProcessedData;
         }
 
-        return null;
+        return null
     });
 
     done();

@@ -14,12 +14,12 @@ const yearlyEnergyRoute = (
         });
 
         if (yearlyEnergy !== null) {
-            const data = {
+            const yearsData = {
                 energy: yearlyEnergy.energy,
                 labels: yearlyEnergy.year,
             };
 
-            return data;
+            return yearsData;
         }
     });
 
